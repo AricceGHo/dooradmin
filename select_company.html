@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Telegram Web App</title>
+</head>
+<body>
+    <h1>Items:</h1>
+    <ul id="item-list"></ul>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>  <!-- Подключаем Telegram Web App SDK -->
+
+    <script>
+      const tg = window.Telegram.WebApp;
+      const initData = tg.initData || tg.initDataUnsafe;
+
+      if (initData) {
+        try {
+          const urlParams = new URLSearchParams(initData);
+          const setupData = urlParams.get('web_app_setup_data') || urlParams.get('WebAppInitData');
+
+          if (setupData) {
+            const items = JSON.parse(decodeURIComponent(setupData)); // Декодируем URL компоненты
+
+            const itemList = document.getElementById('item-list');
+            items.forEach(item => {
+              const listItem = document.createElement('li');
+              listItem.textContent = item.name;
+              itemList.appendChild(listItem);
+            });
+          }
+        } catch (error) {
+          console.error("Error processing initData:", error);
+        }
+      } else {
+        console.log("No initData received from Telegram.");
+      }
+    </script>
+</body>
+</html>
