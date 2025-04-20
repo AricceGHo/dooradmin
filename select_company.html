@@ -16,8 +16,8 @@
       if (initData) {
         try {
           const urlParams = new URLSearchParams(initData);
-          const setupData = urlParams.get('web_app_setup_data') || urlParams.get('WebAppInitData');
-
+          
+          const setupData = urlParams.get('companies');
           if (setupData) {
             const items = JSON.parse(decodeURIComponent(setupData)); // Декодируем URL компоненты
 
