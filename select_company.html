@@ -42,8 +42,6 @@
         // Создаем выпадающее меню, используя 'name' как название второго столбца
         createDropdown(companies, 'company-select', 'name', 'Выберите вариант', handleSelectionChange);
 
-
-
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
             const select = document.getElementById('company-select');
