@@ -25,10 +25,24 @@
     <script type="module">
 
         import { getJsonFromUrlParam } from './utils.js';
+        import { createDropdown } from './utils.js';
 
         // Получаем данные компаний
         const companies = getJsonFromUrlParam('companies');
         console.log("Парсенные компании:", companies);
+
+        let selectedCompany;
+        createDropdown(companies, 'company-select', 'name');
+        // Функция для обработки изменения выбора
+        const handleSelectionChange = (value) => {
+            selectedCompany = value; // Записываем значение в переменную
+            console.log("Текущий выбор:", selectedCompany); // Выводим выбор в консоль
+        };
+
+        // Создаем выпадающее меню, используя 'name' как название второго столбца
+        createDropdown(companies, 'company-select', 'name', 'Выберите вариант', handleSelectionChange);
+
+        */
 
         // Функция для создания выпадающего меню
         const createCompanySelect = (companies) => {
@@ -48,7 +62,7 @@
         };
 
         // Инициализируем выпадающее меню
-        createCompanySelect(companies);
+        createCompanySelect(companies); */
 
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
