@@ -26,25 +26,30 @@
         // Функция для получения параметров из URL
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
-            const data = params.get('data');
-            // Отладка: выводим полученные данные
+            const data = params.get('companies');  // Изменил с 'data' на 'companies'
             console.log("Полученные данные:", data);
-            return data ? JSON.parse(decodeURIComponent(data)) : [];
+            return data ? JSON.parse(data) : [];
         }
 
         // Получаем данные компаний
         const companies = getQueryParams();
-        console.log("Парсенные компании:", companies); // Отладка: выводим парсенные данные
+        console.log("Парсенные компании:", companies);
 
         // Функция для создания выпадающего меню
         const createCompanySelect = (companies) => {
             const select = document.getElementById('company-select');
-            companies.forEach(company => {
+            if (companies.length === 0) {
                 const option = document.createElement('option');
-                option.value = company.id; // Сохраняем ID компании
-                option.textContent = company.name; // Отображаем имя компании
+                option.textContent = "Нет доступных компаний";
                 select.appendChild(option);
-            });
+            } else {
+                companies.forEach(company => {
+                    const option = document.createElement('option');
+                    option.value = company.id;
+                    option.textContent = company.name;
+                    select.appendChild(option);
+                });
+            }
         };
 
         // Инициализируем выпадающее меню
@@ -55,7 +60,7 @@
             const select = document.getElementById('company-select');
             const selectedCompanyId = select.value;
             const returnUrl = `https://t.me/your_bot?company_id=${selectedCompanyId}`;
-            window.location.href = returnUrl; // Переход на URL
+            window.location.href = returnUrl;
         });
     </script>
 </body>
