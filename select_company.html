@@ -54,7 +54,7 @@
                 document.getElementById('error').innerText= 'Ничего не выбрано';
                 //return;
             }
-            let data = { selectedId: selectedCompany };
+            let data = { action: 'set_company_for_pr', selectedId: selectedCompany };
             console.log("Отправляемые данные:", data);
             tg.sendData(JSON.stringify(data));
             //const returnUrl = `https://t.me/dooradmin_bot?company_id=${selectedCompany}`;
