@@ -21,9 +21,12 @@
     <h1>Выбор компании</h1>
     <select id="company-select"></select>
     <button id="submit-button">Отправить</button>
+    <div id ="error"></div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script type="module">
 
+        let tg = window.Telegram.WebApp();
+        tg.expand();
         import { getJsonFromUrlParam } from './utils.js';
         import { createDropdown } from './utils.js';
 
@@ -44,10 +47,12 @@
 
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
-            const select = document.getElementById('company-select');
-            const selectedCompanyId = select.value;
-            const returnUrl = `https://t.me/your_bot?company_id=${selectedCompanyId}`;
-            window.location.href = returnUrl;
+            if(selectedCompany === '')
+            {
+                document.getElementById('error').innerText= 'Ничего не выбрано';
+                return;
+            }
+            tg.close();
         });
     </script>
 </body>
