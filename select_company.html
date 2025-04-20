@@ -56,7 +56,9 @@
             }
             let data = { selectedId: selectedCompany };
             console.log("Отправляемые данные:", data);
-            tg.sendData(JSON.stringify(data)); // Убедитесь, что это срабатывает
+            tg.sendData(JSON.stringify(data));
+            const returnUrl = `https://t.me/dooradmin_bot?company_id=${selectedCompanyId}`;
+             window.location.href = returnUrl; // Переход на URL
             tg.close();
         });
     </script>
