@@ -21,18 +21,13 @@
     <h1>Выбор компании</h1>
     <select id="company-select"></select>
     <button id="submit-button">Отправить</button>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="module">
 
-    <script>
-        // Функция для получения параметров из URL
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            const data = params.get('companies');  // Изменил с 'data' на 'companies'
-            console.log("Полученные данные:", data);
-            return data ? JSON.parse(data) : [];
-        }
+        import { getJsonFromUrlParam } from './utils.js';
 
         // Получаем данные компаний
-        const companies = getQueryParams();
+        const companies = getJsonFromUrlParam('companies');
         console.log("Парсенные компании:", companies);
 
         // Функция для создания выпадающего меню
