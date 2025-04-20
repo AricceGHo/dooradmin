@@ -23,7 +23,7 @@ export const createDropdown = (dataArray, selectId, columnName, defaultOptionTex
     // Проверяем, есть ли данные в массиве
     if (dataArray.length === 0) {
         const option = document.createElement('option');
-        option.textContent = "Нет доступных компаний";
+        option.textContent = "Нет доступных для выбора значений";
         option.value = ''; // Опция без значения
         select.appendChild(option);
     } else {
