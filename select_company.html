@@ -1,32 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>My Telegram Web App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор компании</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Items:</h1>
-    <ul id="item-list"></ul>
+    <h1>Выбор компании</h1>
+    <ul id="company-list"></ul>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const setupData = urlParams.get('companies'); // Изменили на "companies"
-
-        if (setupData) {
-            try {
-                const items = JSON.parse(decodeURIComponent(setupData));
-
-                const itemList = document.getElementById('item-list');
-                items.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = item.name;
-                    itemList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error("Error processing setupData:", error);
-            }
-        } else {
-            console.log("No setupData parameter found in URL.");
+        // Функция для получения параметров из URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const data = params.get('data');
+            return data ? JSON.parse(decodeURIComponent(data)) : [];
         }
+
+        // Получаем данные
+        const companies = getQueryParams();
+
+        // Функция для создания списка компаний
+        const createCompanyList = (companies) => {
+            const listContainer = document.getElementById('company-list');
+            companies.forEach(company => {
+                const listItem = document.createElement('li');
+                listItem.textContent = company.name;
+                listContainer.appendChild(listItem);
+            });
+        };
+
+        // Вызываем функцию для создания списка
+        createCompanyList(companies);
     </script>
 </body>
 </html>
