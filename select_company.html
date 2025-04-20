@@ -11,6 +11,10 @@
             margin: 0;
             padding: 20px;
         }
+        select, button {
+            margin-top: 20px;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -19,34 +23,37 @@
     <button id="submit-button">Отправить</button>
 
     <script>
-        // Функция получения параметров из URL
+        // Функция для получения параметров из URL
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             const data = params.get('data');
+            // Отладка: выводим полученные данные
+            console.log("Полученные данные:", data);
             return data ? JSON.parse(decodeURIComponent(data)) : [];
         }
 
+        // Получаем данные компаний
         const companies = getQueryParams();
+        console.log("Парсенные компании:", companies); // Отладка: выводим парсенные данные
 
-        // Создаем выпадающее меню
+        // Функция для создания выпадающего меню
         const createCompanySelect = (companies) => {
             const select = document.getElementById('company-select');
             companies.forEach(company => {
                 const option = document.createElement('option');
-                option.value = company.id; // сохраняем ID компании
-                option.textContent = company.name; // отображаем имя компании
+                option.value = company.id; // Сохраняем ID компании
+                option.textContent = company.name; // Отображаем имя компании
                 select.appendChild(option);
             });
         };
 
+        // Инициализируем выпадающее меню
         createCompanySelect(companies);
 
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
             const select = document.getElementById('company-select');
             const selectedCompanyId = select.value;
-
-            // Сформировать URL для возврата в бот
             const returnUrl = `https://t.me/your_bot?company_id=${selectedCompanyId}`;
             window.location.href = returnUrl; // Переход на URL
         });
