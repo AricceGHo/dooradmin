@@ -7,6 +7,7 @@ export function getJsonFromUrlParam(paramName) {
    }
 
 // Функция для создания выпадающего меню
+// utils.js
 export const createDropdown = (dataArray, selectId, columnName, defaultOptionText = "Выберите вариант", onChange) => {
     const select = document.getElementById(selectId);
 
