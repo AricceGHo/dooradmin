@@ -7,33 +7,26 @@
     <h1>Items:</h1>
     <ul id="item-list"></ul>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>  <!-- Подключаем Telegram Web App SDK -->
-
     <script>
-      const tg = window.Telegram.WebApp;
-      const initData = tg.initData || tg.initDataUnsafe;
+        const urlParams = new URLSearchParams(window.location.search);
+        const setupData = urlParams.get('companies'); // Изменили на "companies"
 
-      if (initData) {
-        try {
-          const urlParams = new URLSearchParams(initData);
-          
-          const setupData = urlParams.get('companies');
-          if (setupData) {
-            const items = JSON.parse(decodeURIComponent(setupData)); // Декодируем URL компоненты
+        if (setupData) {
+            try {
+                const items = JSON.parse(decodeURIComponent(setupData));
 
-            const itemList = document.getElementById('item-list');
-            items.forEach(item => {
-              const listItem = document.createElement('li');
-              listItem.textContent = item.name;
-              itemList.appendChild(listItem);
-            });
-          }
-        } catch (error) {
-          console.error("Error processing initData:", error);
+                const itemList = document.getElementById('item-list');
+                items.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = item.name;
+                    itemList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error processing setupData:", error);
+            }
+        } else {
+            console.log("No setupData parameter found in URL.");
         }
-      } else {
-        console.log("No initData received from Telegram.");
-      }
     </script>
 </body>
 </html>
