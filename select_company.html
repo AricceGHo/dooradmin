@@ -54,6 +54,9 @@
                 document.getElementById('error').innerText= 'Ничего не выбрано';
                 return;
             }
+            let data = { selectedId: selectedCompany };
+            console.log("Отправляемые данные:", data);
+            tg.sendData(JSON.stringify(data)); // Убедитесь, что это срабатывает
             tg.close();
         });
     </script>
