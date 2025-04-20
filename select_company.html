@@ -58,6 +58,7 @@
             console.log("Отправляемые данные:", data);
             tg.sendData(JSON.stringify(data));
             const returnUrl = `https://t.me/dooradmin_bot?company_id=${selectedCompanyId}`;
+            const returnUrl = `https://vk.com`;
              window.location.href = returnUrl; // Переход на URL
             tg.close();
         });
