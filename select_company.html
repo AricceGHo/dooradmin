@@ -48,6 +48,7 @@
 
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
+         document.getElementById('error').innerText= '';
             if(selectedCompany === '')
             {
                 document.getElementById('error').innerText= 'Ничего не выбрано';
