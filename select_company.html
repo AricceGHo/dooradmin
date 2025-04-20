@@ -11,46 +11,45 @@
             margin: 0;
             padding: 20px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #fff;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body>
     <h1>Выбор компании</h1>
-    <ul id="company-list"></ul>
+    <select id="company-select"></select>
+    <button id="submit-button">Отправить</button>
 
     <script>
-        // Функция для получения параметров из URL
+        // Функция получения параметров из URL
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             const data = params.get('data');
             return data ? JSON.parse(decodeURIComponent(data)) : [];
         }
 
-        // Получаем данные
         const companies = getQueryParams();
 
-        // Функция для создания списка компаний
-        const createCompanyList = (companies) => {
-            const listContainer = document.getElementById('company-list');
+        // Создаем выпадающее меню
+        const createCompanySelect = (companies) => {
+            const select = document.getElementById('company-select');
             companies.forEach(company => {
-                const listItem = document.createElement('li');
-                listItem.textContent = company.name;
-                listContainer.appendChild(listItem);
+                const option = document.createElement('option');
+                option.value = company.id; // сохраняем ID компании
+                option.textContent = company.name; // отображаем имя компании
+                select.appendChild(option);
             });
         };
 
-        // Вызываем функцию для создания списка
-        createCompanyList(companies);
+        createCompanySelect(companies);
+
+        // Отправка выбранной компании обратно в бот
+        document.getElementById('submit-button').addEventListener('click', () => {
+            const select = document.getElementById('company-select');
+            const selectedCompanyId = select.value;
+
+            // Сформировать URL для возврата в бот
+            const returnUrl = `https://t.me/your_bot?company_id=${selectedCompanyId}`;
+            window.location.href = returnUrl; // Переход на URL
+        });
     </script>
 </body>
 </html>
