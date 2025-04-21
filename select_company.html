@@ -54,13 +54,11 @@
             if(selectedCompany === '')
             {
                 document.getElementById('error').innerText= 'Ничего не выбрано';
-                //return;
+                return;
             }
-            let data = { action: 'set_company_for_pr', selectedId: selectedCompany };
+            let data = { action: 'registration_company_choose', selectedId: selectedCompany };
             console.log("Отправляемые данные:", data);
             tg.sendData(JSON.stringify(data));
-            //const returnUrl = `https://t.me/dooradmin_bot?company_id=${selectedCompany}`;
-            //window.location.href = returnUrl; // Переход на URL
 
             tg.close();
         });
