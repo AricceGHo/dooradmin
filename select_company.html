@@ -35,6 +35,7 @@
         // Получаем данные компаний
         //const companies = getJsonFromUrlParam('companies');
         const companies = getJsonFromUrlParamDecodeURI('companies');
+        const action = getJsonFromUrlParamDecodeURI('action');
         console.log("Парсенные компании:", companies);
 
         let selectedCompany;
@@ -56,7 +57,7 @@
                 document.getElementById('error').innerText= 'Ничего не выбрано';
                 return;
             }
-            let data = { action: 'registration_company_choose', selectedId: selectedCompany };
+            let data = { action: action, selectedId: selectedCompany };
             console.log("Отправляемые данные:", data);
             tg.sendData(JSON.stringify(data));
 
