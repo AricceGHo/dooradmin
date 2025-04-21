@@ -6,6 +6,33 @@ export function getJsonFromUrlParam(paramName) {
        return data ? JSON.parse(data) : [];
    }
 
+export function getJsonFromUrlParamDecodeURI(paramName) {
+  const params = new URLSearchParams(window.location.search);
+  let data = params.get(paramName);
+
+  console.log("Первоначальные данные из URL для параметра:", paramName, "->", data);
+
+  if (data) {
+    try {
+      // 1. Сначала декодируем URL-encoded строку:
+      const decodedData = decodeURIComponent(data.replace(/\+/g, ' ')); // Заменяем + на пробелы и декодируем
+      console.log("URL-декодированные данные:", decodedData);
+
+      // 2. Затем парсим JSON:
+      const jsonData = JSON.parse(decodedData);
+      console.log("JSON-распарсенные данные:", jsonData);
+      return jsonData;
+
+    } catch (error) {
+      console.error("Ошибка при обработке параметра", paramName, ":", error);
+      return []; // Или null, в зависимости от вашей логики обработки ошибок
+    }
+  } else {
+    console.log("Параметр", paramName, "не найден в URL.");
+    return []; // Или null
+  }
+}
+
 // Функция для создания выпадающего меню
 // utils.js
 export const createDropdown = (dataArray, selectId, columnName, defaultOptionText = "Выберите вариант", onChange) => {

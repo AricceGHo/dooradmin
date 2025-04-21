@@ -29,10 +29,12 @@
         tg.expand();
 
         import { getJsonFromUrlParam } from './utils.js';
+        import { getJsonFromUrlParamDecodeURI } from './utils.js';
         import { createDropdown } from './utils.js';
 
         // Получаем данные компаний
-        const companies = getJsonFromUrlParam('companies');
+        //const companies = getJsonFromUrlParam('companies');
+        const companies = getJsonFromUrlParamDecodeURI('companies');
         console.log("Парсенные компании:", companies);
 
         let selectedCompany;
