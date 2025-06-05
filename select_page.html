@@ -18,8 +18,8 @@
     </style>
 </head>
 <body>
-    <h1>Выбор компании</h1>
-    <select id="company-select"></select>
+    <h1 id="header-title"></h1>
+    <select id="select"></select>
     <button id="submit-button">Отправить</button>
     <div id ="error"></div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -33,32 +33,35 @@
         import { createDropdown } from './utils.js';
 
         // Получаем данные компаний
-        //const companies = getJsonFromUrlParam('companies');
-        const companies = getJsonFromUrlParamDecodeURI('companies');
+
+        const header_title= getJsonFromUrlParamDecodeURI('headerTitle')
+        const header = document.getElementById('header-title');
+        header.textContent = header_title;
+
+        const chooseList = getJsonFromUrlParamDecodeURI('chooseList');
         const action = getJsonFromUrlParamDecodeURI('action');
         const user_id=getJsonFromUrlParamDecodeURI('user_id');
-        console.log("Парсенные компании:", companies);
 
-        let selectedCompany;
+        let selectedData;
 
         // Функция для обработки изменения выбора
         const handleSelectionChange = (value) => {
-            selectedCompany = value; // Записываем значение в переменную
-            console.log("Текущий выбор:", selectedCompany); // Выводим выбор в консоль
+            selectedData = value; // Записываем значение в переменную
+            console.log("Текущий выбор:", selectedData); // Выводим выбор в консоль
         };
 
         // Создаем выпадающее меню, используя 'name' как название второго столбца
-        createDropdown(companies, 'company-select', 'name', 'Выберите вариант', handleSelectionChange);
+        createDropdown(chooseList, 'select', 'name', 'Выберите вариант', handleSelectionChange);
 
         // Отправка выбранной компании обратно в бот
         document.getElementById('submit-button').addEventListener('click', () => {
          document.getElementById('error').innerText= '';
-            if(selectedCompany === '')
+            if(selectedData === '')
             {
                 document.getElementById('error').innerText= 'Ничего не выбрано';
                 return;
             }
-            let data = { action: action, selectedId: selectedCompany,user_id: user_id };
+            let data = { action: action, selectedId: selectedData,user_id: user_id };
             console.log("Отправляемые данные:", data);
             tg.sendData(JSON.stringify(data));
 
